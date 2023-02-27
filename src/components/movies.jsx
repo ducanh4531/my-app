@@ -1,6 +1,6 @@
 import React from "react";
+// import { useState, useEffect } from "react";
 import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.css";
 
 import { getMovies } from "../services/fakeMovieService";
 import { deleteMovie } from "../services/fakeMovieService";
@@ -8,18 +8,24 @@ import { deleteMovie } from "../services/fakeMovieService";
 const Movies = () => {
 	const [movies, setMovies] = useState(getMovies());
 
+	// useEffect(() => {
+	// 	setMovies(getMovies());
+	// }, [movies]);
+
 	const handleDelete = (id) => {
 		const removeMovie = deleteMovie(id);
 		setMovies(movies.filter((m) => m._id !== removeMovie._id));
 	};
 
+	//
+
+	// return !movies ? null : (
 	return (
 		<>
-			<h1>
+			<h2>
 				Showing {movies.length ? `${movies.length} movies` : "no movie"}{" "}
 				in the database.
-			</h1>
-
+			</h2>
 			<table className="table">
 				<thead>
 					<tr>
@@ -38,7 +44,10 @@ const Movies = () => {
 							<td>{movie.numberInStock}</td>
 							<td>{movie.dailyRentalRate}</td>
 							<td>
-								<button onClick={() => handleDelete(movie._id)}>
+								<button
+									className="btn btn-danger btn-sm"
+									onClick={() => handleDelete(movie._id)}
+								>
 									Delete
 								</button>
 							</td>
