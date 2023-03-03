@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { getMovies } from "../services/fakeMovieService";
 import { deleteMovie } from "../services/fakeMovieService";
+import Like from "./common/like";
 
 const Movies = () => {
 	const [movies, setMovies] = useState(getMovies());
@@ -31,6 +32,7 @@ const Movies = () => {
 						<th>Stock</th>
 						<th>Rate</th>
 						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -40,6 +42,9 @@ const Movies = () => {
 							<td>{movie.genre.name}</td>
 							<td>{movie.numberInStock}</td>
 							<td>{movie.dailyRentalRate}</td>
+							<td>
+								<Like />
+							</td>
 							<td>
 								<button
 									className="btn btn-danger btn-sm"

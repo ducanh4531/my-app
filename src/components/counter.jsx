@@ -5,7 +5,7 @@ const Counter = ({ counter, onIncrement, onDecrement, onDelete }) => {
 		<>
 			<div className="container">
 				<div className="row">
-					<div className="col-sm">
+					<div className="col-1">
 						<span
 							style={styles}
 							className={`badge bg-${
@@ -15,25 +15,25 @@ const Counter = ({ counter, onIncrement, onDecrement, onDelete }) => {
 							{counter.value ? counter.value : "Zero"}
 						</span>
 					</div>
-					<div className="col-sm">
+					<div className="col">
 						<button
-							className="btn btn-sm m-2 btn-secondary"
+							className="btn btn-sm btn-secondary"
 							onClick={() => onIncrement(counter)}
 						>
 							+
 						</button>
 						<button
-							disabled={(!counter.value)}
+							disabled={!counter.value}
 							className="btn btn-sm m-2 btn-secondary"
 							onClick={() => onDecrement(counter)}
 						>
 							-
 						</button>
 						<button
-							className="btn btn-sm m-2 btn-danger"
+							className="btn btn-sm btn-danger"
 							onClick={() => onDelete(counter.id)}
 						>
-							x
+							Delete
 						</button>
 					</div>
 				</div>
