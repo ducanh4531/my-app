@@ -1,18 +1,10 @@
-import { useState } from "react";
-
-const Like = () => {
-	const [like, setLike] = useState(0);
-
-	const handleLike = () => {
-		setLike(!like);
-	};
-	
+const Like = ({ liked, onLike }) => {
 	return (
 		<>
 			<i
-				onClick={handleLike}
+				onClick={onLike}
 				className={`btn btn-default btn-sm fa fa-heart${
-					like ? "" : "-o"
+					liked ? "" : "-o"
 				}`}
 				aria-hidden="true"
 				cursor="pointer"

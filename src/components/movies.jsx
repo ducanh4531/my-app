@@ -1,22 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { getMovies } from "../services/fakeMovieService";
+import { getMovies, getMovie } from "../services/fakeMovieService";
 import { deleteMovie } from "../services/fakeMovieService";
 import Like from "./common/like";
 
 const Movies = () => {
-	const [movies, setMovies] = useState(getMovies());
+	const [movies, setMovies] = useState([]);
 
-	// useEffect(() => {
-	// 	setMovies(getMovies());
-	// }, [movies]);
+	useEffect(() => {
+		const rawMovies = getMovies();
+		setMovies(rawMovies);
+	}, []);
 
 	const handleDelete = (id) => {
 		const removeMovie = deleteMovie(id);
 		setMovies(movies.filter((m) => m._id !== removeMovie._id));
 	};
 
-	//
+	const handleLike = (id) => {
+		const movie = getMovie(id);
+		movie.like = !movie.like;
+		const updateMovie = movies.reduce((acc, cur) => {
+			if (cur._id === movie.id) {
+				acc.push(movie);
+			}
+			acc.push(cur);
+			return acc;
+		}, []);
+		setMovies(updateMovie);
+	};
 
 	return (
 		<>
@@ -43,7 +55,10 @@ const Movies = () => {
 							<td>{movie.numberInStock}</td>
 							<td>{movie.dailyRentalRate}</td>
 							<td>
-								<Like />
+								<Like
+									liked={movie.like}
+									onLike={() => handleLike(movie._id)}
+								/>
 							</td>
 							<td>
 								<button
