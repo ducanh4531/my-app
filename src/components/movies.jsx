@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { getMovies, getMovie } from "../services/fakeMovieService";
+import { getMovies } from "../services/fakeMovieService";
 import { deleteMovie } from "../services/fakeMovieService";
 import Like from "./common/like";
 
@@ -17,17 +17,13 @@ const Movies = () => {
 		setMovies(movies.filter((m) => m._id !== removeMovie._id));
 	};
 
-	const handleLike = (id) => {
-		const movie = getMovie(id);
-		movie.like = !movie.like;
-		const updateMovie = movies.reduce((acc, cur) => {
-			if (cur._id === movie.id) {
-				acc.push(movie);
-			}
-			acc.push(cur);
-			return acc;
-		}, []);
-		setMovies(updateMovie);
+	const handleLike = (movie) => {
+		const newMovies = [...movies];
+		const index = movies.indexOf(movie);
+
+		newMovies[index] = { ...newMovies[index] };
+		newMovies[index].like = !newMovies[index].like;
+		setMovies(newMovies);
 	};
 
 	return (
@@ -43,8 +39,8 @@ const Movies = () => {
 						<th>Genre</th>
 						<th>Stock</th>
 						<th>Rate</th>
-						<th></th>
-						<th></th>
+						<th />
+						<th />
 					</tr>
 				</thead>
 				<tbody>
@@ -57,7 +53,7 @@ const Movies = () => {
 							<td>
 								<Like
 									liked={movie.like}
-									onLike={() => handleLike(movie._id)}
+									onLike={() => handleLike(movie)}
 								/>
 							</td>
 							<td>
