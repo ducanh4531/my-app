@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 
 import { getMovies } from "../services/fakeMovieService";
 import { deleteMovie } from "../services/fakeMovieService";
+import { paginate } from "../utils/paginate";
 import Like from "./common/like";
+import Pagination from "./common/pagination";
 
 const Movies = () => {
 	const [movies, setMovies] = useState([]);
+	const [pageSize] = useState(4);
+	const [currentPage, setCurrentPage] = useState(1);
 
 	useEffect(() => {
 		const rawMovies = getMovies();
@@ -26,11 +30,18 @@ const Movies = () => {
 		setMovies(newMovies);
 	};
 
+	const handlePageChange = (page) => {
+		setCurrentPage(page);
+	};
+
+	const { length: count } = movies;
+	const allMovies = paginate(movies, currentPage, pageSize);
+
 	return (
 		<>
 			<h2>
-				Showing {movies.length ? `${movies.length} movies` : "no movie"}{" "}
-				in the database.
+				Showing {count ? `${count} movies` : "no movie"} in the
+				database.
 			</h2>
 			<table className="table">
 				<thead>
@@ -44,7 +55,7 @@ const Movies = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{movies.map((movie) => (
+					{allMovies.map((movie) => (
 						<tr key={movie._id}>
 							<td>{movie.title}</td>
 							<td>{movie.genre.name}</td>
@@ -68,6 +79,12 @@ const Movies = () => {
 					))}
 				</tbody>
 			</table>
+			<Pagination
+				pageSize={pageSize}
+				itemsCount={count}
+				currentPage={currentPage}
+				onPageChange={handlePageChange}
+			/>
 		</>
 	);
 };
