@@ -3,11 +3,10 @@ const Like = ({ liked, onLike }) => {
 		<>
 			<i
 				onClick={onLike}
-				className={`btn btn-default btn-sm fa fa-heart${
+				className={`clickable btn btn-default btn-sm fa fa-heart${
 					liked ? "" : "-o"
 				}`}
 				aria-hidden="true"
-				cursor="pointer"
 			></i>
 		</>
 	);

@@ -13,11 +13,7 @@ const Pagination = ({ pageSize, itemsCount, currentPage, onPageChange }) => {
 		<nav aria-label="Page navigation">
 			<ul className="pagination">
 				{pages.map((page) => (
-					<li
-						key={page}
-						className="page-item"
-						style={{ cursor: "pointer" }}
-					>
+					<li key={page} className="clickable page-item">
 						<a
 							className={`page-link ${
 								page === currentPage ? "active" : ""

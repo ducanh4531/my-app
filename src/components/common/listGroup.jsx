@@ -6,22 +6,19 @@ const ListGroup = ({
 	valueProperty,
 }) => {
 	return (
-		<>
-			<ul className="list-group">
-				{items.map((item) => (
-					<li
-						style={{ cursor: "pointer" }}
-						onClick={() => onItemSelect(item)}
-						key={item[valueProperty]}
-						className={`list-group-item ${
-							selectedItem === item ? "active" : ""
-						}`}
-					>
-						{item[textProperty]}
-					</li>
-				))}
-			</ul>
-		</>
+		<ul className="list-group">
+			{items.map((item) => (
+				<li
+					onClick={() => onItemSelect(item)}
+					key={item[valueProperty]}
+					className={`clickable list-group-item ${
+						selectedItem === item ? "active" : ""
+					}`}
+				>
+					{item[textProperty]}
+				</li>
+			))}
+		</ul>
 	);
 };
 
