@@ -1,8 +1,13 @@
 // import { useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 
-// import NavBar from "./components/navbar";
 // import Counters from "./components/counters";
 import Movies from "./components/movies";
+import Customers from "./components/customers";
+import Rentals from "./components/rentals";
+import NavBar from "./components/navBar";
+import NotFound from "./components/notFound";
+import MovieForm from "./components/movieForm";
 
 function App() {
 	// const [counters, setCounters] = useState([
@@ -42,7 +47,25 @@ function App() {
 
 	return (
 		<>
-			<Movies />
+			<NavBar />
+			<main className="container content">
+				<Routes>
+					<Route
+						path="/"
+						exact
+						element={<Navigate to="/movies" replace />}
+					/>
+					<Route path="movies" element={<Movies />} />
+					<Route path="movies/:id" element={<MovieForm />} />
+					<Route path="customers" element={<Customers />} />
+					<Route path="rentals" element={<Rentals />} />
+					<Route path="not-found" element={<NotFound />} />
+					<Route
+						path="*"
+						element={<Navigate to="/not-found" replace />}
+					/>
+				</Routes>
+			</main>
 			{/* <NavBar
 				totalCounters={counters.filter((c) => c.value > 0).length}
 			/>
