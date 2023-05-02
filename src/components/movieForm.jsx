@@ -103,7 +103,7 @@ const MovieForm = () => {
 		setNewMovie({ ...newMovie, genre: getGenre });
 	};
 
-	return !(movieId && newMovie) ? (
+	return movieId && !newMovie ? (
 		<Routes>
 			<Route path="*" element={<Navigate to="/not-found" replace />} />
 		</Routes>
