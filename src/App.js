@@ -8,6 +8,8 @@ import Rentals from "./components/rentals";
 import NavBar from "./components/navBar";
 import NotFound from "./components/notFound";
 import MovieForm from "./components/movieForm";
+import LoginForm from "./components/loginForm";
+import RegisterForm from "./components/registerForm";
 
 function App() {
 	// const [counters, setCounters] = useState([
@@ -55,8 +57,11 @@ function App() {
 						exact
 						element={<Navigate to="/movies" replace />}
 					/>
+					<Route path="register" element={<RegisterForm />} />
+					<Route path="login" element={<LoginForm />} />
 					<Route path="movies" element={<Movies />} />
-					<Route path="movies/:id" element={<MovieForm />} />
+					<Route path="movies/new" element={<MovieForm />} />
+					<Route path="movies/:id/*" element={<MovieForm />} />
 					<Route path="customers" element={<Customers />} />
 					<Route path="rentals" element={<Rentals />} />
 					<Route path="not-found" element={<NotFound />} />

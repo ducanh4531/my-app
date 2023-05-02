@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-
 import _ from "lodash";
+import { Link } from "react-router-dom";
+
 import { getMovies } from "../services/fakeMovieService";
 import { deleteMovie } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
@@ -91,10 +92,14 @@ const Movies = () => {
 				/>
 			</div>
 			<div className="col">
-				<h2>
+				{/* <button className="btn btn-primary" onCreate={handleCreate}> */}
+				<Link to="/movies/new">
+					<button className="btn btn-primary">New Movie</button>
+				</Link>
+				<p>
 					Showing {totalCount ? `${totalCount} movies` : "no movie"}{" "}
 					in the database.
-				</h2>
+				</p>
 				<MoviesTable
 					allMovies={allMovies}
 					sortColumn={sortColumn}

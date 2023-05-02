@@ -55,6 +55,19 @@ const NavBar = ({ totalCounters }) => {
 								Rentals
 							</NavLink>
 						</li>
+						<li className="nav-item">
+							<NavLink className="nav-link clickable" to="/login">
+								Login
+							</NavLink>
+						</li>
+						<li className="nav-item">
+							<NavLink
+								className="nav-link clickable"
+								to="/register"
+							>
+								Register
+							</NavLink>
+						</li>
 					</ul>
 				</div>
 			</nav>

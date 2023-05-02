@@ -25,3 +25,7 @@ code {
 .link {
 	text-decoration: none;
 }
+
+.btn {
+	margin-bottom: 20px;
+}
