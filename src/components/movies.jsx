@@ -8,10 +8,12 @@ import { getGenres } from "../services/fakeGenreService";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
+import Input from "./common/input";
 import MoviesTable from "./moviesTable";
 
 const Movies = () => {
 	const [movies, setMovies] = useState([]);
+	const [query, setQuery] = useState("");
 	const [pageSize] = useState(4);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [genres, setGenres] = useState([]);
@@ -51,6 +53,7 @@ const Movies = () => {
 
 	const handleGenreSelect = (genre) => {
 		setSelectedGenre(genre);
+		setQuery("");
 		setCurrentPage(1);
 	};
 
@@ -59,11 +62,17 @@ const Movies = () => {
 	};
 
 	// encapsulated the logic into a function:
-	const getPagedData = () => {
-		const filtered =
+	const getPagedData = (query) => {
+		const filteredBySelected =
 			selectedGenre && selectedGenre._id
 				? movies.filter((m) => m.genre._id === selectedGenre._id)
 				: movies;
+
+		const filteredByQuery = movies.filter((m) =>
+			m.title.toLowerCase().includes(query.toLowerCase())
+		);
+
+		const filtered = query ? filteredByQuery : filteredBySelected;
 
 		// use lodash to order filtered list by using specific path of objects in array and order asc or desc
 		const sorted = _.orderBy(
@@ -79,7 +88,13 @@ const Movies = () => {
 		return { totalCount: filtered.length, data: allMovies };
 	};
 
-	const { totalCount, data: allMovies } = getPagedData();
+	const { totalCount, data: allMovies } = getPagedData(query);
+
+	const handleSearch = ({ target }) => {
+		setSelectedGenre("");
+		setQuery(target.value);
+		setCurrentPage(1);
+	};
 
 	return (
 		<div className="row">
@@ -100,6 +115,13 @@ const Movies = () => {
 					Showing {totalCount ? `${totalCount} movies` : "no movie"}{" "}
 					in the database.
 				</p>
+				<Input
+					onChange={handleSearch}
+					value={query}
+					name="query"
+					type="text"
+					placeholder="Search..."
+				/>
 				<MoviesTable
 					allMovies={allMovies}
 					sortColumn={sortColumn}
